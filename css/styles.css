@@ -1,1 +1,89 @@
 /* developer styles go here */
+
+body{
+    font-family: sans-serif;
+}
+
+header{
+    max-width: 58rem;
+    margin: 0 auto;
+}
+/* Step 1 : Style all the menu links showing on the smallest screen */
+/* text styling goes on the <a> tag to overwrite he browser styles. Layout styles go on the <li> elements. */
+
+ul.menu{
+    background-color:#191919;
+}
+
+ul.menu a{
+    color: #f5f5f5;
+    text-decoration: none;
+    text-transform: uppercase;
+    /* expand the clickable/tap area to fill the entire li,vs just the text itself */
+    display: block;
+    padding: 1rem;
+}
+ul.menu a:hover,
+ul.menu a:active{
+    background-color: #262626;
+    border-radius: 5px;
+}
+
+ul.dropdown-menu a{
+    text-decoration: none;
+}
+
+/* Step 2: layout the links for the larger screen, style everything and then hide the second level nav */
+
+@media only screen and (min-width: 40em){
+ul.menu {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+ul.menu li{
+    /* flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: auto; */
+    flex: 1 0 auto;
+    /* forces the text to stay on the line,cannot wrap */
+    white-space: nowrap;
+    text-align: center;
+    position: relative;
+}
+}
+/* Step 3: position and hide the dropdown menu */
+
+/* remove the indent we wanted for the mobile screen */
+ul.dropdown-menu{
+    padding:0;
+    position: absolute;
+    background-color: #191919;
+    border-radius: 0 0 5px 5px;
+    left: 0;
+/* display none is bad for screen readers, this is not an accesiable menu */
+/* display: none; */
+    visibility: hidden;
+    opacity: 0;
+
+}
+/* Step 4: create a hover state that will show this menu */
+/* when hovering over the main li,the dropdown will show */
+ul.menu li:hover > ul {
+/* display: block; */
+    visibility: visible;
+    opacity: 1;
+    transition: all 0.5s ease;
+}
+
+/* Step 5: add accesslibity with the:focus-within state on the li's which will target the anchor tags inside */
+/* https://webaim.org/techniques/keyboard/ */
+ul.menu li:focus-within > ul,
+ul.menu li > ul:focus {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+} 
+
+/* Step 6:add tranition to the changing dropdown menu to show/hide it smoothly */
+/* see ul.dropdown above */
